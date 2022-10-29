@@ -1,0 +1,37 @@
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { FeedsService } from '../../services/feeds.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Feed } from '../../models/feed.model';
+
+@Component({
+  selector: 'app-feeds',
+  templateUrl: './feeds.component.html',
+  styleUrls: ['./feeds.component.scss']
+})
+export class FeedsComponent implements OnInit {
+  feeds: Array<Observable<Feed>> = [];
+  feedLimit: number = 0;
+
+  constructor(
+    private feedsService: FeedsService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) { }
+
+  ngOnInit(): void {
+    this.feedsService.fetchFeeds('top')
+      .subscribe(() => {
+        this.feeds = this.feedsService.feeds;
+        this.feedLimit = 10;
+        this.onScrollToLoadFeed();
+      });
+  }
+
+  /**
+   * Adds 10 feed on every scroll in the viewport.
+   */
+  onScrollToLoadFeed() {
+    this.feedLimit = this.feedLimit + 10;
+  }
+}

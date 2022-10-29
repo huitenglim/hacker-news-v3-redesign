@@ -1,0 +1,15 @@
+body {
+  font-family: 'Poppins', sans-serif;
+  color: $dark-purple;
+}
+a {
+  color: $dark-purple;
+  text-decoration: none;
+  transition: color .2s ease;
+
+  &:hover {
+    color: lighten($dark-purple, 17%);
+    text-decoration: underline;
+    transition: color .2s ease;
+  }
+}

@@ -1,0 +1,27 @@
+<div class="feed">
+  <div class="feed-aside">
+    <a href="#" class="feed-upvote-link">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 117.867 131.466">
+        <path fill="#fcc34a" d="m58.933 0 58.933 58.933H86.133v72.533h-54.4V58.933H0L58.933 0Z" class="color000 svgShape"/>
+      </svg>
+    </a>
+    <span class="feed-score">{{ feed?.score }}</span>
+  </div>
+  <div class="feed-content">
+    <div class="feed-content-header">
+      <p>Posted by <a href="#" class="feed-user">{{ feed?.by }}</a></p>
+      <span class="feed-dot-separator"></span>
+      <span class="feed-time">1 hour ago</span>
+    </div>
+    <div class="feed-content-body">
+      <a class="feed-title"
+         (click)="goToLink(this.feed?.url)">
+        {{ feed?.title }}
+      </a>
+      <a href="#" class="feed-badge badge rounded-pill">
+        {{ feed?.descendants > 1 ? feed?.descendants + ' comments' : feed?.descendants + 'comment' }}
+      </a>
+      <a href="#" class="feed-badge badge badge-grey rounded-pill">Hide</a>
+    </div>
+  </div>
+</div>

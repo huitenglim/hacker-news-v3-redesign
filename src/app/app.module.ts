@@ -1,25 +1,32 @@
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
+import { AppRoutingModule } from "./app-routing.module";
+
+// Import services
+import { FeedsService } from "./services/feeds.service";
 
 // Import components
 import {
-  AppHeaderComponent
+  HeaderComponent
 } from './components';
-const APP_COMPONENTS = [
-  AppHeaderComponent
+const UI_COMPONENTS = [
+  HeaderComponent
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
-    ...APP_COMPONENTS
+    ...UI_COMPONENTS
   ],
   imports: [
-    BrowserModule
+    AppRoutingModule,
+    BrowserModule,
+    HttpClientModule,
   ],
-  providers: [],
+  providers: [FeedsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

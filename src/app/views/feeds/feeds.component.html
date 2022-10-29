@@ -1,0 +1,8 @@
+<div
+  infinite-scroll
+  [infiniteScrollDistance]="2"
+  [infiniteScrollThrottle]="0"
+  (scrolled)="onScrollToLoadFeed()"
+>
+  <app-feed *ngFor="let feed of feeds | slice: 0: feedLimit" [feed]="feed | async"></app-feed>
+</div>
