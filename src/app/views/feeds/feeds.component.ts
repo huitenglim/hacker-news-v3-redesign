@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { FeedsService } from '../../services/feeds.service';
-import { ActivatedRoute, Router } from '@angular/router';
 import { Feed } from '../../models/feed.model';
 
 @Component({
@@ -13,11 +12,7 @@ export class FeedsComponent implements OnInit {
   feeds: Array<Observable<Feed>> = [];
   feedLimit: number = 0;
 
-  constructor(
-    private feedsService: FeedsService,
-    private router: Router,
-    private route: ActivatedRoute
-  ) { }
+  constructor(private feedsService: FeedsService) { }
 
   ngOnInit(): void {
     this.feedsService.fetchFeeds('top')
