@@ -1,3 +1,16 @@
+<div *ngIf="!feed" class="feed feed-loading">
+  <div class="feed-aside">
+    <span class="feed-score"></span>
+  </div>
+  <div class="feed-content">
+    <div class="feed-content-header"></div>
+    <div class="feed-content-body">
+      <span class="feed-title"></span>
+      <span class="feed-badge badge rounded-pill"></span>
+      <span class="feed-badge badge badge-grey rounded-pill"></span>
+    </div>
+  </div>
+</div>
 <div class="feed">
   <div class="feed-aside">
     <a href="#" class="feed-upvote-link">
@@ -18,8 +31,8 @@
          (click)="goToLink(this.feed?.url)">
         {{ feed?.title }}
       </a>
-      <a href="#" class="feed-badge badge rounded-pill">
-        {{ feed?.descendants > 1 ? feed?.descendants + ' comments' : feed?.descendants + 'comment' }}
+      <a *ngIf="feed?.descendants" href="#" class="feed-badge badge rounded-pill">
+        {{ feed?.descendants > 1 ? feed?.descendants + ' comments' : feed?.descendants + ' comment' }}
       </a>
       <a href="#" class="feed-badge badge badge-grey rounded-pill">Hide</a>
     </div>

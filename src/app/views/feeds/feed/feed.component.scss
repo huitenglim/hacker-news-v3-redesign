@@ -1,6 +1,7 @@
 @use './src/sass/variables' as *;
 
 .feed {
+  $root: &;
   border-radius: 0;
   border-bottom: 1px solid $grey;
   display: flex;
@@ -11,6 +12,7 @@
   min-height: 100px;
 
   &-content {
+    flex: 0 0 calc(100% - 100px - 2rem);
     background-color: #fff;
 
     &-header {
@@ -28,12 +30,6 @@
     }
     &-body {
       margin-bottom: 2.25rem;
-
-      a {
-        &.feed-badge {
-          margin-right: .5rem;
-        }
-      }
     }
   }
   &-aside {
@@ -43,8 +39,8 @@
     justify-content: center;
     text-align: center;
     height: 100%;
-    margin: 0 1rem;
-    padding: .5rem;
+    flex: 0 0 100px;
+    padding: 0 1rem;
 
     a {
       margin-bottom: .25rem;
@@ -83,9 +79,43 @@
     background-color: $light-grey;
     padding: 0.25rem .5rem;
     font-weight: 600;
+    margin-right: .5rem;
     color: var(--hn-dark-purple);
   }
+  &-loading {
+    #{$root}-score {
+      background-color: $light-grey;
+      width: 30px;
+      height: 30px;
+      border-radius: 5px;
+    }
+    #{$root}-content {
+      &-header {
+        background-color: $light-grey;
+        width: 100%;
+        height: 20px;
+        border-radius: 5px;
+      }
+    }
+    #{$root}-title {
+      background-color: $light-grey;
+      width: 100%;
+      height: 20px;
+      border-radius: 5px;
+    }
+    #{$root}-badge {
+      display: inline-block;
+      background-color: $light-grey;
+      width: 100px;
+      height: 20px;
+
+      &:last-child {
+        width: 42px;
+      }
+    }
+  }
 }
+// Bootstrap override
 .badge {
   text-decoration: none;
   transition: background-color .2s ease;
