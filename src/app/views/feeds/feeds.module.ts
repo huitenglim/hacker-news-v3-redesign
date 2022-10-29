@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { MomentModule } from 'ngx-moment';
 import { FeedsRoutingModule } from "./feeds-routing.module";
 import { FeedsComponent } from './feeds.component';
 import { FeedComponent } from './feed/feed.component';
@@ -13,7 +14,8 @@ import { FeedComponent } from './feed/feed.component';
   imports: [
     CommonModule,
     InfiniteScrollModule,
-    FeedsRoutingModule
+    FeedsRoutingModule,
+    MomentModule
   ],
 })
 export class FeedsModule { }

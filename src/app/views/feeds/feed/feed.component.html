@@ -11,7 +11,7 @@
     <div class="feed-content-header">
       <p>Posted by <a href="#" class="feed-user">{{ feed?.by }}</a></p>
       <span class="feed-dot-separator"></span>
-      <span class="feed-time">1 hour ago</span>
+      <span class="feed-time">{{ (feed?.time | amFromUnix) | amTimeAgo }}</span>
     </div>
     <div class="feed-content-body">
       <a class="feed-title"
