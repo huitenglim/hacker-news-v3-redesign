@@ -1,9 +1,16 @@
 <div
-  class="feeds-container"
+  class="row"
   infinite-scroll
   [infiniteScrollDistance]="2"
   [infiniteScrollThrottle]="0"
   (scrolled)="onScrollToLoadFeed()"
 >
-  <app-feed *ngFor="let feed of feeds | slice: 0: feedLimit" [feed]="feed | async"></app-feed>
+  <main class="feeds-container col-xl-7">
+    <app-feed
+      *ngFor="let feed of feeds | slice: 0: feedLimit" [feed]="feed | async"
+      >
+    </app-feed>
+  </main>
+
+  <aside class="col-xl-4 offset-xl-1"></aside>
 </div>

@@ -18,15 +18,19 @@ export class FeedsComponent implements OnInit {
     this.feedsService.fetchFeeds('top')
       .subscribe(() => {
         this.feeds = this.feedsService.feeds;
-        this.feedLimit = 10;
+        this.feedLimit =  10;
         this.onScrollToLoadFeed();
       });
   }
 
   /**
-   * Adds 10 feed on every scroll in the viewport.
+   * Adds 10 feed on every scroll in the viewport until
+   * there is no more feed to add.
    */
   onScrollToLoadFeed() {
-    this.feedLimit = this.feedLimit + 10;
+    if (this.feedLimit < this.feedsService.feeds.length) {
+      this.feedLimit = this.feedLimit + 10;
+    }
   }
+
 }
