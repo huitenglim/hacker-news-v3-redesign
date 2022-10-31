@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { FormsModule } from "@angular/forms";
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { MomentModule } from 'ngx-moment';
 import { FeedsRoutingModule } from "./feeds-routing.module";
@@ -13,6 +14,7 @@ import { FeedComponent } from './feed/feed.component';
   ],
   imports: [
     CommonModule,
+    FormsModule,
     InfiniteScrollModule,
     FeedsRoutingModule,
     MomentModule

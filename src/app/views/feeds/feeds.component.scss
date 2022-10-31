@@ -1,7 +1,44 @@
-.feeds-container {
-  margin-top: 3rem;
+@use './src/sass/variables' as *;
 
-  @media (max-width: 1199px) {
-    margin-top: 6.5rem;
+.feeds {
+  &-container {
+    margin-top: 3rem;
+
+    @media (max-width: 1199px) {
+      margin-top: 6.5rem;
+    }
+  }
+  &-side-content {
+    border-left: 1px solid $grey;
+    padding: 2.5rem 2rem;
+    min-height: 100vh;
+  }
+  &-search-box {
+    border-color: $grey;
+    border-radius: 50px;
+    border-left: none;
+    padding-left: .5rem;
+  }
+  &-search-result {
+    font-size: 2rem;
+    font-weight: 800;
+
+    > p {
+      color: $dark-grey;
+
+      > span {
+        color: $dark-purple;
+      }
+    }
+  }
+}
+.input-group {
+  height: 50px;
+
+  &-text {
+    border-color: $grey;
+    border-radius: 50px;
+    background-color: $white;
+    padding-right: .5rem;
   }
 }

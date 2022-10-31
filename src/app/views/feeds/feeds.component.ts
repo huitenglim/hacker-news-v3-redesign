@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { FeedsService } from '../../services/feeds.service';
 import { Feed } from '../../models/feed.model';
 
@@ -9,28 +8,53 @@ import { Feed } from '../../models/feed.model';
   styleUrls: ['./feeds.component.scss']
 })
 export class FeedsComponent implements OnInit {
-  feeds: Array<Observable<Feed>> = [];
+  feeds:Array<Feed> = [];
   feedLimit: number = 0;
+  isSorted = false;
+  filteredFeeds: any;
+  searchValue: string = '';
 
   constructor(private feedsService: FeedsService) { }
 
   ngOnInit(): void {
-    this.feedsService.fetchFeeds('top')
-      .subscribe(() => {
-        this.feeds = this.feedsService.feeds;
-        this.feedLimit =  10;
-        this.onScrollToLoadFeed();
+    this.fetchFeeds('top', 0, 20);
+  }
+
+  /**
+   * Fetch feeds and limit it to the first 20.
+   */
+  fetchFeeds(feedType: string, startAt: number, endAt: number) {
+    this.feedsService.fetchFeeds(feedType, startAt, endAt)
+      .subscribe((feeds) => {
+        this.feeds = feeds;
+        this.filteredFeeds = this.feeds;
       });
   }
 
   /**
-   * Adds 10 feed on every scroll in the viewport until
-   * there is no more feed to add.
+   * Adds 5 feeds on every scroll.
    */
   onScrollToLoadFeed() {
-    if (this.feedLimit < this.feedsService.feeds.length) {
-      this.feedLimit = this.feedLimit + 10;
-    }
+    this.feedLimit += 5;
+    this.fetchFeeds('top', 0, 20 + this.feedLimit);
   }
 
+  /**
+   * Search through the feed `title` and `by` value.
+   * When there is no input value, display the original results.
+   *
+   * @param value - The input search value.
+   */
+  search(value: string) {
+    if (value) {
+      this.filteredFeeds = this.feeds.filter((feed)=> {
+        if (feed.title.toLowerCase().indexOf(value.toLowerCase().trim()) >= 0 || feed.by.toLowerCase().indexOf(value.toLowerCase().trim()) >= 0) {
+          return this.filteredFeeds;
+        }
+      });
+    }
+    else {
+      this.filteredFeeds = this.feeds;
+    }
+  }
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { forkJoin } from 'rxjs';
+import { mergeMap, map } from 'rxjs/operators';
 
 import { Feed } from '../models/feed.model';
 
@@ -11,7 +11,6 @@ export const BASE_API_URL = 'https://hacker-news.firebaseio.com/v0/';
   providedIn: 'root'
 })
 export class FeedsService {
-  feeds: Array<Observable<Feed>>;
 
   constructor(private http: HttpClient) { }
 
@@ -27,17 +26,22 @@ export class FeedsService {
 
   /**
    * Fetch feeds by type from hacker news api.
-   * Store the array of feed item observable objects in `this.feeds`.
+   * Then limit the number of ids returned from the api to prevent this.fetchFeed
+   * from fetching all feeds at once based on the actual amount of ids element during
+   * subscription of data in the component.
    *
-   * @param feedType - feed type (top | new | best).
+   * @param feedType - Feed type (top | new | best).
+   * @param startAt - Start position of the array.
+   * @param endAt - End position of the array.
    * @return - An array of feed item ids.
    */
-  fetchFeeds(feedType: string) {
+  fetchFeeds(feedType: string, startAt: number, endAt: number) {
     return this.http.get(`${BASE_API_URL}/${feedType}stories.json`)
-      .pipe(tap({
-        next: ((res: Array<number>) => {
-          this.feeds = res.map((feedId: number) => this.fetchFeed(feedId));
-        })
-      }));
+      .pipe(
+        map(data => Object.values(data).slice(startAt, endAt)),
+        mergeMap((ids) =>
+          forkJoin(Object.values(ids).map((id) => this.fetchFeed(id)))
+        )
+      );
   }
 }

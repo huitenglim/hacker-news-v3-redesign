@@ -6,11 +6,27 @@
   (scrolled)="onScrollToLoadFeed()"
 >
   <main class="feeds-container col-xl-7">
-    <app-feed
-      *ngFor="let feed of feeds | slice: 0: feedLimit" [feed]="feed | async"
-      >
-    </app-feed>
+    <div *ngIf="searchValue.trim() !== ''" class="feeds-search-result">
+      <p>Results for <span>{{searchValue}}</span></p>
+    </div>
+    <app-feed *ngFor="let feed of filteredFeeds" [feed]="feed"></app-feed>
   </main>
 
-  <aside class="col-xl-4 offset-xl-1"></aside>
+  <aside class="feeds-side-content col-xl-4 offset-xl-1">
+    <div class="input-group">
+      <span class="input-group-text" id="search-box">
+        <span class="visually-hidden">Search icon</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 29 28">
+          <path fill="#110638" d="M12 4a7.988 7.988 0 0 1 6.52 12.62l-.79 1.11-1.11.79A7.996 7.996 0 1 1 12 4zm0-4a12 12 0 1 0 6.936 21.781l5.635 5.636c.778.777 2.04.777 2.817 0l.029-.029a1.894 1.894 0 0 0 0-2.817l-5.636-5.635A11.988 11.988 0 0 0 12 0z" class="color000100 svgShape"/>
+        </svg>
+      </span>
+      <input type="text"
+             class="feeds-search-box form-control"
+             placeholder="Search feed"
+             aria-label="Search through feed"
+             aria-describedby="search-box"
+             [(ngModel)]="searchValue"
+             (keyup)=search($any($event.target).value)>
+    </div>
+  </aside>
 </div>
