@@ -2,7 +2,6 @@
 
 .header {
   padding: 2.5rem 2rem;
-  width: 20vw;
 
   p {
     margin-bottom: 0;
@@ -10,7 +9,7 @@
   &-container {
     display: flex;
     flex-wrap: wrap;
-    align-items: end;
+    align-items: flex-end;
     flex-direction: column;
   }
   &-logo {

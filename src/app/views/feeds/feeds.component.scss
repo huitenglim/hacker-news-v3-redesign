@@ -2,16 +2,22 @@
 
 .feeds {
   &-container {
-    margin-top: 3rem;
-
-    @media (max-width: 1199px) {
-      margin-top: 6.5rem;
-    }
+    display: flex;
+    flex-wrap: wrap;
+  }
+  &-main-content {
+    width: calc(82% - (180px + 5rem));
   }
   &-side-content {
-    border-left: 1px solid $grey;
-    padding: 2.5rem 2rem;
-    min-height: 100vh;
+    &-desktop {
+      min-height: 100vh;
+      padding: 2.5rem 2rem;
+      margin-left: 5rem;
+      border-left: 1px solid $grey;
+    }
+    &-mobile {
+      display: none;
+    }
   }
   &-search-box {
     border-color: $grey;
@@ -19,9 +25,16 @@
     border-left: none;
     padding-left: .5rem;
   }
+  &-search-list {
+    &-space {
+      margin-top: 6rem;
+    }
+  }
   &-search-result {
     font-size: 2rem;
     font-weight: 800;
+    margin-top: 6rem;
+    margin-bottom: 2.5rem;
 
     > p {
       color: $dark-grey;
@@ -29,6 +42,55 @@
       > span {
         color: $dark-purple;
       }
+    }
+  }
+  @media (max-width: 1199px) {
+    &-main-content {
+      width: calc(100% - (280px + 6rem));
+      margin-left: 3rem;
+      margin-right: 3rem;
+    }
+    &-side-content {
+      &-desktop {
+        width: 280px;
+        padding-top: 7.5rem;
+        margin-left: 0;
+      }
+    }
+    &-search-list {
+      &-space {
+        margin-top: 9rem;
+      }
+    }
+    &-search-result {
+      margin-top: 9rem;
+    }
+  }
+  @media (max-width: 991px) {
+    &-container {
+      display: block;
+    }
+    &-main-content {
+      width: auto;
+      margin-right: 2rem;
+      margin-left: 2rem;
+    }
+    &-side-content {
+      &-desktop {
+        display: none;
+      }
+      &-mobile {
+        display: block;
+        margin: 8rem 2rem 2.5rem 2rem;
+      }
+    }
+    &-search-list {
+      &-space {
+        margin-top: 0;
+      }
+    }
+    &-search-result {
+      margin-top: 0;
     }
   }
 }
