@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FeedsService } from '../../services/feeds.service';
 import { Feed } from '../../models/feed.model';
 
@@ -13,11 +14,20 @@ export class FeedsComponent implements OnInit {
   isSorted = false;
   filteredFeeds: any;
   searchValue: string = '';
+  feedType: string = 'top';
 
-  constructor(private feedsService: FeedsService) { }
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private feedsService: FeedsService,
+  ) { }
 
   ngOnInit(): void {
-    this.fetchFeeds('top', 0, 20);
+    this.route.paramMap.subscribe((params) => {
+      this.feedType = params.get('type');
+
+      this.fetchFeeds(this.feedType, 0, 20);
+    });
   }
 
   /**
@@ -36,7 +46,11 @@ export class FeedsComponent implements OnInit {
    */
   onScrollToLoadFeed() {
     this.feedLimit += 5;
-    this.fetchFeeds('top', 0, 20 + this.feedLimit);
+    this.route.paramMap.subscribe((params) => {
+      this.feedType = params.get('type');
+
+      this.fetchFeeds(this.feedType, 0, 20 + this.feedLimit);
+    });
   }
 
   /**
