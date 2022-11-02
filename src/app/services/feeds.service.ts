@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { forkJoin } from 'rxjs';
-import { mergeMap, map } from 'rxjs/operators';
+import { mergeMap, map, tap } from 'rxjs/operators';
 
 import { Feed } from '../models/feed.model';
 
@@ -11,6 +11,7 @@ export const BASE_API_URL = 'https://hacker-news.firebaseio.com/v0/';
   providedIn: 'root'
 })
 export class FeedsService {
+  totalFeedIds;
 
   constructor(private http: HttpClient) { }
 
@@ -38,6 +39,7 @@ export class FeedsService {
   fetchFeeds(feedType: string, startAt: number, endAt: number) {
     return this.http.get(`${BASE_API_URL}/${feedType}stories.json`)
       .pipe(
+        tap((data) => this.totalFeedIds = data),
         map(data => Object.values(data).slice(startAt, endAt)),
         mergeMap((ids) =>
           forkJoin(Object.values(ids).map((id) => this.fetchFeed(id)))

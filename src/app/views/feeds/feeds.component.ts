@@ -15,6 +15,7 @@ export class FeedsComponent implements OnInit {
   filteredFeeds: any;
   searchValue: string = '';
   feedType: string = 'top';
+  feedsLength;
 
   constructor(
     private router: Router,
@@ -38,18 +39,18 @@ export class FeedsComponent implements OnInit {
       .subscribe((feeds) => {
         this.feeds = feeds;
         this.filteredFeeds = this.feeds;
+        this.feedsLength = this.feedsService.totalFeedIds;
       });
   }
 
   /**
    * Adds 5 feeds on every scroll.
    */
-  onScrollToLoadFeed() {
+  onScrollToLoadFeeds() {
     this.feedLimit += 5;
     this.route.paramMap.subscribe((params) => {
       this.feedType = params.get('type');
-
-      this.fetchFeeds(this.feedType, 0, 20 + this.feedLimit);
+      this.fetchFeeds(this.feedType, 0, 20 + (this.feedLimit < this.feedsLength.length ? this.feedLimit : 0));
     });
   }
 

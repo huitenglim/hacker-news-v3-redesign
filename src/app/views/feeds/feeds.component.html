@@ -2,8 +2,8 @@
   class="feeds-container"
   infinite-scroll
   [infiniteScrollDistance]="2"
-  [infiniteScrollThrottle]="0"
-  (scrolled)="onScrollToLoadFeed()"
+  [infiniteScrollThrottle]="300"
+  (scrolled)="onScrollToLoadFeeds()"
 >
   <aside class="feeds-side-content feeds-side-content-mobile">
     <div class="input-group">
