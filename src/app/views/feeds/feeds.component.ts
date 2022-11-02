@@ -16,6 +16,7 @@ export class FeedsComponent implements OnInit {
   searchValue: string = '';
   feedType: string = 'top';
   feedsLength;
+  loading: boolean;
 
   constructor(
     private router: Router,
@@ -25,6 +26,7 @@ export class FeedsComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
+      this.loading = true;
       this.feedType = params.get('type');
 
       this.fetchFeeds(this.feedType, 0, 20);
@@ -40,6 +42,7 @@ export class FeedsComponent implements OnInit {
         this.feeds = feeds;
         this.filteredFeeds = this.feeds;
         this.feedsLength = this.feedsService.totalFeedIds;
+        this.loading = false;
       });
   }
 
@@ -52,6 +55,7 @@ export class FeedsComponent implements OnInit {
       this.feedType = params.get('type');
       this.fetchFeeds(this.feedType, 0, 20 + (this.feedLimit < this.feedsLength.length ? this.feedLimit : 0));
     });
+    this.loading = false;
   }
 
   /**

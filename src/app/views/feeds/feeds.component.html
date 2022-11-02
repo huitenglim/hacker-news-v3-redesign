@@ -23,7 +23,10 @@
     </div>
   </aside>
 
-  <main class="feeds-main-content">
+  <main class="feeds-main-content" aria-live="polite">
+    <div *ngIf="loading" class="loader-container">
+      <span class="loader-spinner"></span>
+    </div>
     <div *ngIf="searchValue.trim() !== ''" class="feeds-search-result">
       <p>Results for <span>{{searchValue}}</span></p>
     </div>
